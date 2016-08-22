@@ -40,13 +40,12 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
 
 ## `WebView` configuration
 
-  **special props for `WebView`**
-
+**special props for `WebView`**
   * **`evalJs`**: handle function if you want to call js in html page from react-native. eg: ``` this.web.evalJs('var t = document.title; alert(t)'); ```
   * **`evalReturn`**: require if you need call js fun in react-native from html page. `evalReturn={(r) => {eval(r)}`.
   * **`go`**: handle function if you need open a new uri. eg: ``` this.web.go('http://xxxxxx'); ```
 
-  **other**
+**other**
   * **`returnEval`**: js function in html page if you want to call js in react-native from html page, eg:```returnEval('this.setText("from html page...")')```, usually you also need set the prop of component `evalReturn={(r) => {eval(r)}`
 
 ## Licensed
