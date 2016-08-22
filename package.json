@@ -12,9 +12,11 @@
   },
   "keywords": [
     "react-native-webview2",
-    "webview",
+    "WebView",
+    "Web",
     "auto height",
-    "call js"
+    "call js",
+    "react-native"
   ],
   "author": "architect.bian",
   "license": "MIT",
