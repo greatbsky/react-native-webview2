@@ -18,13 +18,6 @@ const getHash = (url) => {
     return '';
 }
 
-/**
-通过webview里网页的url的hash进行js相互调用，并实现autoheight功能，暂时只支持source={uri}，不支持source={html}
-Demo:
-    <WebView
-        autoheight={true}
-    />
-*/
 export default class extends WebView {
 
     constructor(props) {

@@ -9,6 +9,19 @@ import styles from './style/index.css';
 
 import WebView from './WebView';
 
+/**
+通过webview里网页的url的hash进行js相互调用，并实现autoheight功能，只支持source={uri}，不支持source={html}
+Demo:
+import Web from 'react-native-webview2';
+
+<Web
+evalReturn={(r) => {eval(r)}
+ref={(c) => {this.web = c}}
+source={{uri: 'xxx'}}
+style={[styles.web, {minHeight: 300}]}
+...other props
+/>
+*/
 export default class extends Component {
 
     constructor(props) {
