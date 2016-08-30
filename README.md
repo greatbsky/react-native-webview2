@@ -11,9 +11,9 @@
 This is the `WebView` or `Web` component in React Native both for Android and iOS, support `auto height` & `call js` between component and html document, very useful & easily!
 
   This is a JavaScript-only implementation of `WebView` in React Native, named `react-native-webview2` or `WebView` or `Web`.
-  1. `react-native-webview2` can change the height of `WebView` dynamically when you change the prop `source={uri:xxx}`(until now not yet support html) if you not set the prop `style={height:xxx}`, otherwise the height of `WebView` is fixed.
-  2. `react-native-webview2` also can make you call js in html document or reactnative, if you want to call js in html page from react-native, you just invoke `this.web.evalJs("js code...here")` from react-native, if you want to call react-native code, you just invoke `returnEval("rn code...here")` from html page, and set the prop `evalReturn={(r) => {eval(r)}` of this component `WebView`.
-  3. `react-native-webview2` support all of props like `WebView` in React Native.
+  1. `react-native-webview2` can change the height of `WebView` dynamically when you set the prop `source={uri:xxx}`(until now not yet support html) if you not set the prop `style={height:xxx}`, otherwise the height of `WebView` is fixed.
+  2. `react-native-webview2` also can make you call js in html document or reactnative, if you want to call js in html page from react-native, you just invoke `this.web.evalJs("js code...here")` from react-native. If you want to call react-native code, you just invoke `returnEval("rn code...here")` from html page, meanwhile set the prop `evalReturn={(r) => {eval(r)}`.
+  3. `react-native-webview2` support all props of `WebView` in React Native.
 
 `WebView` demo project: https://github.com/greatbsky/react-native-webview2-demo
 
