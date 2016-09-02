@@ -12,7 +12,7 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
 
   This is a JavaScript-only implementation of `WebView` in React Native, named `react-native-webview2` or `WebView` or `Web`.
   1. `react-native-webview2` can change the height of `WebView` dynamically when you set the prop `source={uri:xxx}`(until now not yet support html) if you not set the prop `style={height:xxx}`, otherwise the height of `WebView` is fixed.
-  2. `react-native-webview2` also can make you call js in html document or reactnative, if you want to call js in html page from react-native, you just invoke `this.web.evalJs("js code...here")` from react-native. If you want to call react-native code, you just invoke `returnEval("rn code...here")` from html page, meanwhile set the prop `evalReturn={(r) => {eval(r)}`.
+  2. `react-native-webview2` also can make you call js in html document or reactnative, if you want to call js in html page from react-native, you just invoke `this.web.evalJs("js code...here")` from react-native. If you want to call react-native code, you just invoke `returnEval("rn code...here")` from html page, meanwhile set the prop `evalReturn={((r) => {eval(r)}).bind(this)}`.
   3. `react-native-webview2` support all props of `WebView` in React Native.
 
 `WebView` demo project: https://github.com/greatbsky/react-native-webview2-demo
@@ -29,7 +29,7 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
 
   <Web
     ref={(c) => {this.web = c}}
-    evalReturn={(r) => {eval(r)}
+    evalReturn={((r) => {eval(r)}).bind(this)}
     source={{uri: 'xxx'}}
     style={[styles.web, {minHeight: 300}]}
     ...other props
@@ -42,11 +42,11 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
 
 **special props for `WebView`**
   * **`evalJs`**: handle function if you want to call js in html page from react-native. eg: ``` this.web.evalJs('var t = document.title; alert(t)'); ```
-  * **`evalReturn`**: require if you need call js fun in react-native from html page. `evalReturn={(r) => {eval(r)}`.
+  * **`evalReturn`**: require if you need call js fun in react-native from html page. `evalReturn={((r) => {eval(r)}).bind(this)}`.
   * **`go`**: handle function if you need open a new uri. eg: ``` this.web.go('http://xxxxxx'); ```
 
 **other**
-  * **`returnEval`**: js function in html page if you want to call js in react-native from html page, eg:```returnEval('this.setText("from html page...")')```, usually you also need set the prop of component `evalReturn={(r) => {eval(r)}`
+  * **`returnEval`**: js function in html page if you want to call js in react-native from html page, eg:```returnEval('this.setText("from html page...")')```, usually you also need set the prop of component `evalReturn={((r) => {eval(r)}).bind(this)}`
 
 ## Licensed
   MIT License
