@@ -15,11 +15,11 @@ Demo:
 import Web from 'react-native-webview2';
 
 <Web
-evalReturn={(r) => {eval(r)}
-ref={(c) => {this.web = c}}
-source={{uri: 'xxx'}}
-style={[styles.web, {minHeight: 300}]}
-...other props
+    evalReturn={(r) => {eval(r)}
+    ref={(c) => {this.web = c}}
+    source={{uri: 'xxx'}}
+    style={[styles.web, {minHeight: 300}]}
+    ...other props
 />
 */
 export default class extends Component {
@@ -29,7 +29,6 @@ export default class extends Component {
         this.isEnable = (this.props.source && this.props.source.uri) ? true : false;
         this.state = Object.assign({}, props, {
             source: this.props.source,
-            // hash: this.isEnable ? getHash(this.props.source.uri) : '',
             pageId: Math.random(),
             nativeJsId: Math.random(),
         });
@@ -100,7 +99,7 @@ export default class extends Component {
     }
 
     reload() {
-        this.newPageId(); //todo bug...
+        this.newPageId();
         this.webview.reload();
     }
 
