@@ -40,21 +40,21 @@ export default class extends Component {
         this.reload = this.reload.bind(this);
         this.newPageId = this.newPageId.bind(this);
         this.onLoadEnd = this.onLoadEnd.bind(this);
+        this.initJavaScript();
     }
 
     initJavaScript() {
-        let autoHeightJsFun = `window.autoHeight = function() {returnEval('${this.state.nativeJsId};this.setHeight(' + document.documentElement.offsetHeight + ')');};`;
-        let js = `
+        let autoHeightJsFun = `window.setIntervalCount = 0; window.autoHeight = function() {if(window.setIntervalCount++ < 3) {window.setTimeout(window.autoHeight, 600)}; returnEval('${this.state.nativeJsId};this.setHeight(' + document.documentElement.offsetHeight + ')');};`;
+        this.initJsCode = `
         window.returnEval = function (v) {
             window.location.hash = '${this.state.pageId};' + encodeURIComponent(String(v));;
         };
         ${autoHeightJsFun}
         window.addEventListener('onresize', window.autoHeight, false);
         window.addEventListener('onload', window.autoHeight, false);
-        window.setInterval(window.autoHeight, 600);
         window.autoHeight();
         `;
-        this.evalJs(js);
+        this.state.injectedJavaScript = this.initJsCode + this.props.injectedJavaScript;
     }
 
     setHeight(h) {
@@ -63,6 +63,7 @@ export default class extends Component {
         });
     }
 
+    // only support on android
     evalJs(js) {
         // console.log('-----------------------evalJs');
         // console.log(js);
@@ -118,8 +119,9 @@ export default class extends Component {
         let height = this.getHeight(this.props.style); //style设置了height就不会autoheight
         return (
             <View>
-                <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.props.style, {'height': height}]} source={this.state.source} initJavaScript={this.initJavaScript} pageId={this.state.pageId} evalReturn={this.evalReturn}
-                    onLoadEnd={this.onLoadEnd} />
+                <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.props.style, {'height': height}]} source={this.state.source} pageId={this.state.pageId} evalReturn={this.evalReturn}
+                    onLoadEnd={this.onLoadEnd}
+                    injectedJavaScript={this.state.injectedJavaScript} />
             </View>
         );
     }
