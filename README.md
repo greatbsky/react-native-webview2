@@ -8,7 +8,7 @@
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/greatbsky/react-native-webview2.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 
-This is the `WebView` or `Web` component in React Native both for Android and iOS, support `auto height` & `call js` between component and html document, very useful & easily!
+This is the `WebView` or `Web` component in React Native both for Android and iOS, support `auto height` & `call js` (not support on ios) between component and html document, very useful & easily!
 
   This is a JavaScript-only implementation of `WebView` in React Native, named `react-native-webview2` or `WebView` or `Web`.
   1. `react-native-webview2` can change the height of `WebView` dynamically when you set the prop `source={uri:xxx}`(until now not yet support html) if you not set the prop `style={height:xxx}`, otherwise the height of `WebView` is fixed.
@@ -41,7 +41,7 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
 ## `WebView` configuration
 
 **special props for `WebView`**
-  * **`evalJs`**: handle function if you want to call js in html page from react-native. eg: ``` this.web.evalJs('var t = document.title; alert(t)'); ```
+  * **`evalJs`**: (not support on ios) handle function if you want to call js in html page from react-native. eg: ``` this.web.evalJs('var t = document.title; alert(t)'); ```
   * **`evalReturn`**: require if you need call js fun in react-native from html page. `evalReturn={((r) => {eval(r)}).bind(this)}`.
   * **`go`**: handle function if you need open a new uri. eg: ``` this.web.go('http://xxxxxx'); ```
 
