@@ -39,7 +39,6 @@ export default class extends Component {
         this.go = this.go.bind(this);
         this.reload = this.reload.bind(this);
         this.newPageId = this.newPageId.bind(this);
-        this.onLoadEnd = this.onLoadEnd.bind(this);
         this.initJavaScript();
     }
 
@@ -111,16 +110,11 @@ export default class extends Component {
         });
     }
 
-    onLoadEnd(e) {
-         this.webview.__onLoadingFinish(e, this.props.onLoadEnd);
-    }
-
     render() {
         let height = this.getHeight(this.props.style); //style设置了height就不会autoheight
         return (
             <View>
                 <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.props.style, {'height': height}]} source={this.state.source} pageId={this.state.pageId} evalReturn={this.evalReturn}
-                    onLoadEnd={this.onLoadEnd}
                     injectedJavaScript={this.state.injectedJavaScript} />
             </View>
         );
