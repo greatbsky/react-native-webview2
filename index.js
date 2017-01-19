@@ -2,12 +2,11 @@
 
 import React, { Component } from 'react';
 import {
-    View
+    View,
+    WebView
 } from 'react-native';
 
-import styles from './style/index.css';
-
-import WebView from './WebView';
+import styles from './style/index.js';
 
 /**
 通过webview里网页的url的hash进行js相互调用，并实现autoheight功能，只支持source={uri}，不支持source={html}
@@ -33,6 +32,7 @@ export default class extends Component {
             nativeJsId: Math.random(),
         });
         this.initJavaScript = this.initJavaScript.bind(this);
+        this.onMessage = this.onMessage.bind(this);
         this.setHeight = this.setHeight.bind(this);
         this.evalJs = this.evalJs.bind(this);
         this.evalReturn = this.evalReturn.bind(this);
@@ -43,17 +43,35 @@ export default class extends Component {
     }
 
     initJavaScript() {
-        let autoHeightJsFun = `window.setIntervalCount = 0; window.autoHeight = function() {if(window.setIntervalCount++ < 3) {window.setTimeout(window.autoHeight, 600)}; returnEval('${this.state.nativeJsId};this.setHeight(' + document.documentElement.offsetHeight + ')');};`;
+        let autoHeightJsFun = `window.autoHeight = function() {window.returnEval('${this.state.nativeJsId};this.setHeight(' + document.documentElement.offsetHeight + ')');};`;
         this.initJsCode = `
         window.returnEval = function (v) {
-            window.location.hash = '${this.state.pageId};' + encodeURIComponent(String(v));;
+            setTimeout(function() {
+                window.postMessage(String(v));
+            }, 0);
         };
         ${autoHeightJsFun}
         window.addEventListener('onresize', window.autoHeight, false);
-        window.addEventListener('onload', window.autoHeight, false);
-        window.autoHeight();
+        window.ready = function(){
+            window.autoHeight();
+        };
+        function isComplete() {
+			if (document.readyState == "complete") {
+				window.ready();
+			} else {
+				setTimeout(isComplete);
+			}
+		};
+        isComplete();
         `;
         this.state.injectedJavaScript = this.initJsCode + this.props.injectedJavaScript;
+    }
+
+    onMessage(e) {
+        // console.log('-----------------------onMessage');
+        // console.log(e.nativeEvent.data);
+        this.props.onMessage && this.props.onMessage(e);
+        this.evalReturn(e.nativeEvent.data);
     }
 
     setHeight(h) {
@@ -115,7 +133,8 @@ export default class extends Component {
         return (
             <View>
                 <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.props.style, {'height': height}]} source={this.state.source} pageId={this.state.pageId} evalReturn={this.evalReturn}
-                    injectedJavaScript={this.state.injectedJavaScript} />
+                    injectedJavaScript={this.state.injectedJavaScript}
+                    onMessage={this.onMessage} />
             </View>
         );
     }
