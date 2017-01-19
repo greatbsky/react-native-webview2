@@ -23,7 +23,7 @@ This is the `WebView` or `Web` component in React Native both for Android and iO
   ![](https://raw.githubusercontent.com/greatbsky/react-native-webview2-demo/master/WebView2App/image/demo.gif)
 
 ## `WebView` Usage
-  1. Run `npm install react-native-webview2 --save`
+  1. Run `npm install react-native-webview2@latest --save`
   2. Code like this:
   ```
   import Web from 'react-native-webview2';
