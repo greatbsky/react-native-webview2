@@ -30,6 +30,7 @@ export default class extends Component {
             source: this.props.source,
             pageId: Math.random(),
             nativeJsId: Math.random(),
+            style: this.props.styles ? this.props.styles : styles.webview,
         });
         this.initJavaScript = this.initJavaScript.bind(this);
         this.onMessage = this.onMessage.bind(this);
@@ -51,15 +52,14 @@ export default class extends Component {
             }, 0);
         };
         ${autoHeightJsFun}
-        window.addEventListener('onresize', window.autoHeight, false);
         window.ready = function(){
             window.autoHeight();
         };
         function isComplete() {
-			if (document.readyState == "complete") {
+			if (document.readyState == "complete" && document.documentElement.offsetWidth > 0) {
 				window.ready();
 			} else {
-				setTimeout(isComplete);
+				setTimeout(isComplete, 100);
 			}
 		};
         isComplete();
@@ -132,7 +132,7 @@ export default class extends Component {
         let height = this.getHeight(this.props.style); //style设置了height就不会autoheight
         return (
             <View>
-                <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.props.style, {'height': height}]} source={this.state.source} pageId={this.state.pageId} evalReturn={this.evalReturn}
+                <WebView ref={(c) => {this.webview = c}} {...this.props} style={[this.state.style, {'height': height}]} source={this.state.source} pageId={this.state.pageId} evalReturn={this.evalReturn}
                     injectedJavaScript={this.state.injectedJavaScript}
                     onMessage={this.onMessage} />
             </View>

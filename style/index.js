@@ -7,6 +7,8 @@ import {
 
 export default StyleSheet.create({
     webview: {
-        width: Dimensions.get('window').width,
+        flexGrow: 1,
+        paddingLeft: 5,
+        paddingRight: 5,
     }
 });
