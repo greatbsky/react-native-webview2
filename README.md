@@ -1,6 +1,6 @@
 ﻿# react-native-webview2
 
-[![reactnative Version](https://img.shields.io/badge/reactnative-V0.34.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
+[![reactnative Version](https://img.shields.io/badge/reactnative-V0.40.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
 [![NPM Version](https://img.shields.io/npm/v/react-native-webview2.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview2)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-webview2.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview2)
 [![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-webview2.svg)](https://github.com/greatbsky/react-native-webview2/issues)
